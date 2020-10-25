@@ -6,7 +6,7 @@
 1. ## [Programming Basics module](#Programming-Basics-Questions)
 2. ## [Web with Python module](#Web-with-Python-Questions)
 3. ## [Java OOP module](#OOP-Questions)
-4. ## Advanced .NET C# module
+4. ## [Advanced .NET C# module](#Advanced)
 ***
 <br/><br/>
 <br/><br/>
@@ -2104,3 +2104,11 @@ class Derived extends Base
 #### What do you know about database normalization?
 * Database normalization is the process of organizing the attributes of the database to reduce or eliminate data
  redundancy (having the same data but at different places) .
+***
+***
+<br/><br/>
+<br/><br/>
+<br/><br/>
+# Advanced
+
+* Work In Progress...
