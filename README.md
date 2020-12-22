@@ -2590,11 +2590,15 @@ class Derived extends Base
 
 #### Is a struct stored on the heap or stack?
 
-- In C#, classes are always allocated on the heap. Structs are allocated on the stack, if a local function variable, or on the heap as part of a class if a class member.
+- In C#, Structs are not stored anywhere, local variables and fields are.
+- Local variables are stored on stack no matter what type (class or struct) they have. The difference is that a local variable of struct type stores the struct instance and a local variable of reference types stores a reference to the class instance that's stored on the heap.
+- Fields are stored in the object they belong too. If the object is of reference type then it's stored on the heap and so are its fields. If the object is of struct type then it may be stored on stack (as a local variable) or on the heap (as a field of another object).
 
 #### Can a struct have methods?
 
-- Structures can have methods, fields, indexers, properties, operator methods, and events. Structures can have defined constructors, but not destructors. However, you cannot define a default constructor for a structure.
+- Structures can have methods, fields, indexers, properties, operator methods, and events.
+- You can't declare a parameterless constructor. Every structure type already provides an implicit parameterless constructor that produces the default value of the type.
+- A structure type can't inherit from other class or structure type and it can't be the base of a class. However, a structure type can implement interfaces.
 
 #### Can DateTimes be null?
 
@@ -2602,13 +2606,56 @@ class Derived extends Base
 
 #### List out the differences between Array and ArrayList in C#?
 
+- Array must include System namespace to use array.
+- ArrayList must include System.Collections namespace to use ArraList.
+- Array Declaration & Initialization:
+  ```c#
+    int[] arr = new int[5]
+    int[] arr = new int[5]{1, 2, 3, 4, 5};
+    int[] arr = {1, 2, 3, 4, 5};
+  ```
+- ArrayList Declaration & Initialization:
+  ```c#
+      ArrayList arList = new ArrayList();
+      arList.Add(1);
+      arList.Add("Two");
+      arList.Add(false);
+  ```
+  - Array stores a fixed number of elements. The size of an Array must be specified at the time of initialization.
+  - ArrayList grows automatically and you don't need to specify the size.
+  - Array is strongly typed. This means that an array can store only specific type of items\elements.
+  - ArrayList can store any type of items\elements.
+  - ArrayList performs slower than Array because of boxing and unboxing.
+
 #### How is the using() pattern useful? What is IDisposable? How does it support deterministic finalization?
+
+- The using() pattern is useful because it ensures that Dispose() will always be called when a disposable object (defined as one that implements IDisposable, and thus the Dispose() method) goes out of scope, even if it does so by an exception being thrown, and thus that resources are always released.
+- IDisposable is an interface that contains a single method, Dispose(), for releasing unmanaged resources, like files, streams, database connections and so on.
+- You can deterministically finalize any object that implements the IDisposable interface by invoking its Dispose() method. In C#, the using() statement allows you to define a scope at the end of which an object will be disposed.
 
 #### How can you make sure that objects using dedicated resources (database connection, files, hardware, OS handle, etc.) are released as early as possible?
 
+- For the majority of the objects that your app creates, you can rely on the .NET garbage collector to handle memory management. However, when you create objects that include unmanaged resources, you must explicitly release those resources when you finish using them.
+- If your types use unmanaged resources, you should do the following:
+  1. Implement the dispose pattern. This requires that you provide an IDisposable.Dispose implementation to enable the deterministic release of unmanaged resources. A consumer of your type calls Dispose when the object (and the resources it uses) are no longer needed. The Dispose method immediately releases the unmanaged resources.
+  2. In the event that a consumer of your type forgets to call Dispose, provide a way for your unmanaged resources to be released. There are two ways to do this:
+  - Use a safe handle to wrap your unmanaged resource. This is the recommended technique. Safe handles are derived from the System.Runtime.InteropServices.SafeHandle abstract class and include a robust Finalize method. When you use a safe handle, you simply implement the IDisposable interface and call your safe handle's Dispose method in your IDisposable.Dispose implementation. The safe handle's finalizer is called automatically by the garbage collector if its Dispose method is not called.
+
 #### Why to use keyword “const” in C#? Give an example.
 
+- You use the const keyword to declare a constant field or a constant local. Constant fields and locals aren't variables and may not be modified.
+  ```c#
+      const int X = 0;
+      public const double GravitationalConstant = 6.673e-11;
+      private const string ProductName = "Visual C#";
+  ```
+
 #### What is the difference between “const” and “readonly” variables in C#?
+
+- const fields has to be initialized while declaration only, while readonly fields can be initialized at declaration or in the constructor.
+- const variables can declared in methods ,while readonly fields cannot be declared in methods.
+- const fields cannot be used with static modifier, while readonly fields can be used with static modifier.
+- A const field is a compile-time constant, the readonly field can be used for run time constants.
 
 #### What is a property in C#?
 
@@ -2667,6 +2714,8 @@ class Derived extends Base
 #### What is the GAC? What problem does it solve?
 
 #### What is the largest number you can work with in C#?
+
+- It depends on the numeric type. The limits for integer types are listed in Microsoft's table for max.
 
 ### Database
 
