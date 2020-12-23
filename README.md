@@ -2602,7 +2602,7 @@ class Derived extends Base
 
 #### Can DateTimes be null?
 
-- DateTime itself is a value type. It cannot be null. No -- DateTime is a struct in C# and structs (value types) can not be null.
+- DateTime itself is a value type. It cannot be null. No, DateTime is a struct in C# and structs (value types) can not be null.
 
 #### List out the differences between Array and ArrayList in C#?
 
@@ -2659,63 +2659,396 @@ class Derived extends Base
 
 #### What is a property in C#?
 
+- A property is a member that provides a flexible mechanism to read, write, or compute the value of a private field.
+- Properties can be used as if they are public data members, but they are actually special methods called _accessors_.
+- Properties enable a class to expose a public way of getting and setting values, while hiding implementation or verification code.
+
 #### List out two different types of errors in C#?
+
+- Errors refer to the mistake or faults which occur during program development or execution. If you don't find them and correct them, they cause a program to produce wrong results.
+- In programming language errors can be divided into three categories:
+
+  1. Syntax Errors
+
+  - Syntax errors occur during development, when you make type mistake in code. For example, instead of writing while, you write WHILE then it will be a syntax error since C# is a case sensitive language:
+
+  ```c#
+  bool flag=true;
+  WHILE (flag) //syntax error, since c# is case sensitive
+  {
+  //TO DO:
+  }
+  ```
+
+  2. Runtime Errors (Exceptions)
+
+  - Runtime errors occur during execution of the program. These are also called exceptions. This can be caused due to improper user inputs, improper design logic or system errors:
+
+  ```c#
+  int a = 5, b = 0;
+  int result = a / b; // DivideByZeroException
+  ```
+
+  - Exceptions can be handled by using try-catch blocks.
+
+  3. Logical Errors
+
+  - Logic errors occur when the program is written fine but it does not produce desired result. Logic errors are difficult to find because you need to know for sure that the result is wrong:
+
+  ```c#
+  int a = 5, b = 6;
+  double avg = a + b / 2.0; // logical error, it should be (a + b) / 2.0
+  ```
 
 #### What is the difference between “out” and “ref” parameters in C#?
 
+- They're pretty much the same - the only difference is that a variable you pass as an out parameter doesn't need to be initialized but passing it as a ref parameter it has to be set to something:
+
+```c#
+int x;
+Foo(out x); // OK
+
+int y;
+Foo(ref y); // Error: y should be initialized before calling the method
+```
+
+“ref” parameters are for data that might be modified, “out” parameters are for data that's an additional output for the function (eg int.TryParse) that are already using the return value for something.
+
 #### Can we override private virtual method in C#?
+
+- The “virtual” keyword is used to modify a method, property, indexer, or event declaration and allow for it to be overridden in a derived class.
+- You cannot use the “virtual” modifier with the static, abstract, private, or override modifiers.
+- By default, methods are non-virtual. You cannot override a non-virtual method.
 
 #### What's the difference between IEquatable and just overriding Object.Equals()?
 
+- The main difference is performance. IEquatable<T> lets a structure implement a strongly typed Equals() method so no boxing is required. Thus much better performance when using value types with generic collections.
+
+* boxing = Boxing is the process of converting a value type to the type object or to any interface type implemented by this value type.
+  - When the common language runtime (CLR) boxes a value type, it wraps the value inside a System.Object instance and stores it on the managed heap.
+  - Unboxing extracts the value type from the object. Boxing is implicit; unboxing is explicit.
+  - The concept of boxing and unboxing underlies the C# view in which a value of any type can be treated as an object.
+
 #### Explain the differences between public, protected, private and internal. Explain access modifier – “protected internal” in C#!
+
+- All types and type members have an accessibility level. The accessibility level controls whether they can be used from other code in your assembly or other assemblies.
+  - _public_: The type or member can be accessed by any other code in the same assembly or another assembly that references it.
+  - _private_: The type or member can be accessed only by code in the same class or struct.
+  - _protected_: The type or member can be accessed only by code in the same class, or in a class that is derived from that class.
+  - _internal_: The type or member can be accessed by any code in the same assembly, but not from another assembly.
+  - _protected internal_: The type or member can be accessed by any code in the assembly in which it's declared, or from within a derived class in another assembly.
+  - _private protected_: The type or member can be accessed only within its declaring assembly, by code in the same class or in a type that is derived from that class.
 
 #### What’s the difference between using `override` and `new` keywords when defining method in child class?
 
+- The “override” modifier extends the base class virtual method, and the “new” modifier hides an accessible base class method.
+- If the method in the derived class is not preceded by new or override keywords, the compiler will issue a warning and the method will behave as if the new keyword were present.
+- If the method in the derived class is preceded with the new keyword, the method is defined as being independent of the method in the base class.
+- If the method in the derived class is preceded with the override keyword, objects of the derived class will call that method instead of the base class method.
+- In order to apply the override keyword to the method in the derived class, the base class method must be defined “virtual”.
+- The base class method can be called from within the derived class using the base keyword.
+
 #### Explain StringBuilder class in C#!
+
+- The String object is immutable. Every time you use one of the methods in the System.String class, you create a new string object in memory, which requires a new allocation of space for that new object.
+- Mutability means that once an instance of the class has been created, it can be modified by appending, removing, replacing, or inserting characters.
+- The System.Text.StringBuilder class can be used when you want to modify a string without creating a new object. For example, using the StringBuilder class can boost performance when concatenating many strings together in a loop.
 
 #### How we can sort the array elements in descending order in C#?
 
+```c#
+string[] ArrStr = new string[] { "Abundant Code", "Test Code", "Abundant Code1" };
+Array.Sort(ArrStr);
+Array.Reverse(ArrStr);
+```
+
 #### Can you use a value type as a generic type argument in C#? For example when implementing an interface like (IEquatable).
+
+- Passing value types will give a compile-time error, so we cannot pass primitive data types or struct types.
+- In a generic type or method definition, a _type parameter_ is a placeholder for a specific type that a client specifies when they create an instance of the generic type.
+- C# allows you to define generic classes, interfaces, abstract classes, fields, methods, static methods, properties, events, delegates, and operators using the type parameter and without the specific data type.
+- In C#, data types are categorized based on how they store their value in the memory:
+  1. Value type
+  - A data type is a value type if it holds a data value within its own memory space. It means the variables of these data types directly contain values.
+  - The following data types are all of value type: bool, byte, char, decimal, double, enum, float, int, long, sbyte,short, struct, uint, ulong, ushort.
+  2. Reference Type
+  - Unlike value types, a reference type doesn't store its value directly. Instead, it stores the address where the value is being stored. In other words, a reference type contains a pointer to another memory location that holds the data.
+  - The followings are reference type data types: String, Arrays (even if their elements are value types), Class, Delegate
+  - The default value of a reference type variable is null when they are not initialized. Null means not refering to any object.
 
 #### What are Nullable Types in C#?
 
+- The Nullable types are instances of System.Nullable<T> struct.
+- A nullable of type int is the same as an ordinary int plus a flag that says whether the int has a value or not (is null or not).
+- A nullable type can represent the correct range of values for its underlying value type, plus an additional null value. For example, Nullable<int> can be assigned any value from -2147483648 to 2147483647, or a null value.
+- A value type cannot be assigned a null value. For example, int i = null will give you a compile time error.
+- You can use the '?' operator to shorthand the syntax e.g. int?, long? instead of using Nullable<T>.
+  ```c#
+  int? i = null;
+  double? D = null;
+  ```
+
 #### Conceptually, what is the difference between early-binding and late-binding?
+
+- The key difference between early and late binding involves type conversion.
+- While early binding provides compile-time checking of all types so that no implicit casts occur, late binding checks types only when the object is created or an action is performed on the type.
 
 #### What is delegate, event, callback, multicast delegate?
 
+- In computer programming, a callback is executable code that is passed as an argument to other code.
+- C# has delegates for that purpose. They are heavily used with events, as an event can automatically invoke a number of attached delegates (event handlers).
+
+1. The delegate is a reference type data type that defines the method signature.
+
+```c#
+public delegate void MyDelegate(string msg);
+```
+
+- The delegate can point to multiple methods. A delegate that points multiple methods is called a multicast delegate. The "+" or "+=" operator adds a function to the invocation list, and the "-" and "-=" operator removes it.
+
+2. An event is a notification sent by an object to signal the occurrence of an action.
+
+- The class who raises events is called Publisher, and the class who receives the notification is called Subscriber.
+
+```c#
+public delegate void Notify();  // delegate
+public class ProcessBusinessLogic
+{
+  public event Notify ProcessCompleted; // event
+}
+```
+
 #### What is enum in C#?
+
+- An enumeration type (or enum type) is a value type defined by a set of named constants of the underlying integral numeric type. To define an enumeration type, use the enum keyword and specify the names of enum members.
+- By default, the associated constant values of enum members are of type int; they start with zero and increase by one following the definition text order.
+- You can explicitly specify any other integral numeric type as an underlying type of an enumeration type. You can also explicitly specify the associated constant values.
 
 #### What is null-conditional operator?
 
+- null-conditional operator _?._ and _?[]_ is an expression you can use to perform a member or element access operation only if an operand is non-null:
+  ```c#
+  a?.x
+  a?.[x]
+  ```
+- If "a" evaluates to null, the result of a?.x or a?[x] is null.
+- If a evaluates to non-null, the result of a?.x or a?[x] is the same as the result of a.x or a[x], respectively.
+- If a.x or a[x] throws an exception, a?.x or a?[x] would throw the same exception for non-null a. For example, if a is a non-null array instance and x is outside the bounds of a, a?[x] would throw an IndexOutOfRangeException.
+- null-conditional operators are short-circuiting: if one operation in a chain of conditional member or element access operations returns null, the rest of the chain doesn't execute.
+
 #### What is null-coalescing operator?
+
+- null-coalescing operator _??_ returns the value of its left-hand operand if it isn't null; otherwise, it evaluates the right-hand operand and returns its result.
+- The _??_ operator doesn't evaluate its right-hand operand if the left-hand operand evaluates to non-null.
+  ```c#
+  int a = null;
+  int b = a ?? -1;
+  ```
+- The null-coalescing assignment operator ??= assigns the value of its right-hand operand to its left-hand operand only if the left-hand operand evaluates to null. The ??= operator doesn't evaluate its right-hand operand if the left-hand operand evaluates to non-null.
+  ```c#
+  int a = null;
+  numbers.Add(a ??= 0);
+  ```
 
 #### What is serialization?
 
+- in C#, Serialization is the process of converting an object into a stream of bytes to store the object or transmit it to memory, a database, or a file.
+- Its main purpose is to save the state of an object in order to be able to recreate it when needed. The reverse process is called deserialization.
+
 #### What is the difference between Finalize() and Dispose() methods?
+
+- Finalize () is called by Garbage Collector implicitly to free unmanaged resources. The garbage collector calls this method at some point after there are no longer valid references to the object.
+- There are some resources like _windows handles_, _database connections_ which cannot be collected by the garbage collector. Therefore the programmer needs to call Dispose() method of IDisposable interface.
+- Dispose () of IDisposable interface is called by the programmer to explicitly release resources when they are no longer being used. Dispose () can be called even if other references to the object are alive.
 
 #### How do you inherit a class from another class in C#?
 
+- Inheritance enables you to create new classes that reuse, extend, and modify the behavior defined in other classes.
+- The class whose members are inherited is called the base class, and the class that inherits those members is called the derived class. A derived class can have only one direct base class.
+  ```c#
+  public class Animal
+  {
+    public void Greet()
+    {
+        Console.WriteLine("Hello, I'm some sort of animal!");
+    }
+  }
+  public class Dog : Animal {}
+  Animal animal = new Animal();
+  animal.Greet();
+  Dog dog = new Dog();
+  dog.Greet();
+  ```
+
 #### What is difference between “is” and “as” operators in C#?
+
+- The “is” operator checks if an object can be cast to a specific type:
+
+  ```c#
+  if (someObject is StringBuilder) ...
+  ```
+
+- The “as” operator attempts to cast an object to a specific type, and returns null if it fails.
+  ```c#
+  StringBuilder b = someObject as StringBuilder;
+  if (b != null) ...
+  ```
+- The “is” operator is used to check if the run-time type of an object is compatible with the given type or not whereas “as” operator is used to perform conversion between compatible reference types or Nullable types.
+- The “is” operator is of boolean type whereas “as” operator is not of boolean type.
+- The “is” operator returns true if the given object is of the same type whereas “as” operator returns the object when they are compatible with the given type.
+- The “is” operator returns false if the given object is not of the same type whereas “as” operator return null if the conversion is not possible.
+- The “is” operator is used for only reference, boxing, and unboxing conversions whereas “as” operator is used only for nullable, reference and boxing conversions
 
 #### What are indexers in C# .NET?
 
+- An indexer is a special type of property that allows a class or a structure to be accessed like an array for its internal collection. C# allows us to define custom indexers, generic indexers, and also overload indexers.
+
+  ```c#
+  class StringDataStore
+  {
+    private string[] strArr = new string[10]; // internal data storage
+
+    public string this[int index]
+    {
+        get => strArr[index];
+        set => strArr[index] = value;
+    }
+  }
+  StringDataStore strStore = new StringDataStore();
+  strStore[0] = "One";
+  strStore[1] = "Two";
+  strStore[2] = "Three";
+  strStore[3] = "Four";
+  ```
+
 #### What is the difference between returning IQueryable<T> vs. IEnumerable<T>?
+
+- The difference is that IQueryable<T> is the interface that allows LINQ-to-SQL (LINQ.-to-anything really) to work. So if you further refine your query on an IQueryable<T>, that query will be executed in the database, if possible.
+- For the IEnumerable<T> case, it will be LINQ-to-object, meaning that all objects matching the original query will have to be loaded into memory from the database.
+  ```c#
+  IQueryable<Customer> custs = ...;
+  var goldCustomers = custs.Where(c => c.IsGold);
+  ```
+  - That code will execute SQL to only select gold customers. The following code, on the other hand, will execute the original query in the database, then filtering out the non-gold customers in the memory:
+  ```c#
+  IEnumerable<Customer> custs = ...;
+  var goldCustomers = custs.Where(c => c.IsGold);
+  ```
+- This is quite an important difference, and working on IQueryable<T> can in many cases save you from returning too many rows from the database.
+- Another prime example is doing paging: If you use Take and Skip on IQueryable, you will only get the number of rows requested; doing that on an IEnumerable<T> will cause all of your rows to be loaded in memory.
 
 #### What is LINQ? Explain the idea of extension methods.
 
+- LINQ (Language Integrated Query) is uniform query syntax in C# and VB.NET to retrieve data from different sources and formats, thereby eliminating the mismatch between programming languages and databases, as well as providing a single querying interface for different types of data sources.
+- Extension methods, as the name suggests, are additional methods. Extension methods allow you to inject additional methods without modifying, deriving or recompiling the original class, struct or interface. Extension methods can be added to your own custom class, .NET framework classes, or third party classes or interfaces.
+- The only difference between a regular static method and an extension method is that the first parameter of the extension method specifies the type that it is going to operator on, preceded by the this keyword.
+
+  ```c#
+  namespace ExtensionMethods
+  {
+    public static class IntExtensions
+    {
+      public static bool IsGreaterThan(this int i, int value)
+      {
+        return i > value;
+      }
+    }
+  }
+  ```
+
+  ```c#
+  using ExtensionMethods;
+  class Program
+  {
+    static void Main(string[] args)
+    {
+      int i = 10;
+      bool result = i.IsGreaterThan(100);
+      Console.WriteLine(result);
+    }
+  }
+  ```
+
 #### What are the advantages and disadvantages of lazy loading?
+
+- Lazy loading (also called on-demand loading) is an optimization technique for the online content, be it a website or a web app.
+- Instead of loading the entire web page and rendering it to the user in one go as in bulk loading, the concept of lazy loading assists in loading only the required section and delays the remaining, until it is needed by the user.
+
+1. Advantages of Lazy loading:
+
+- reduces time consumption and memory usage thereby optimizing content delivery.
+- Unnecessary code execution is avoided.
+- Optimal usage of time and space resources makes it a cost-effective approach from the point of view of business persons. (website owners)
+
+2. Disadvantages of Lazy loading:
+
+- the extra lines of code, to be added to the existing ones, to implement lazy load makes the code a bit complicated.
+- lazy loading may affect the website’s ranking on search engines sometimes, due to improper indexing of the unloaded content.
 
 #### How to use of “yield” keyword? Mention at least one practical scenario where it can be used?
 
+- When you use the “yield” contextual keyword in a statement, you indicate that the method, operator, or "get" accessor in which it appears is an iterator.
+- You use a “yield” return statement to return each element one at a time.
+- You can use a “yield” break statement to end the iteration.
+- Using yield to define an iterator removes the need for an explicit extra class (the class that holds the state for an enumeration) when you implement the IEnumerable and IEnumerator pattern for a custom collection type.
+
+  ```c#
+  using System;
+  using System.Collections.Generic;
+
+  public class YieldSample
+  {
+    static void Main()
+    {
+      foreach (var number in GenerateWithoutYield())
+        Console.WriteLine(number);
+    }
+    public static IEnumerable<int> GenerateWithoutYield()
+    {
+      var i = 0;
+      var list = new List<int>();
+
+      while (i < 5)  // yield gives the control to this part and will hit only this part everytime we call GenerateWithoutYield
+        yield return ++i;
+    }
+  }
+  ```
+
 #### What are attributes in C#? Give some examples of usage of them.
+
+- Attributes provide a powerful method of associating metadata, or declarative information, with code (assemblies, types, methods, properties, and so forth). After an attribute is associated with a program entity, the attribute can be queried at run time by using a technique called reflection.
+
+```c#
+[Serializable]
+public class SampleClass
+{
+    // Objects of this type can be serialized.
+}
+[Conditional("DEBUG"), Conditional("TEST1")]
+void TraceMethod()
+{
+    // ...
+}
+```
 
 #### By what mechanism does NUnit know what methods to test?
 
 #### What is the GAC? What problem does it solve?
 
+- Each computer where the Common Language Runtime(CLR) is installed has a machine-wide code cache called the Global Assembly Cache (GAC). The Global Assembly Cache stores assemblies specifically designated to be shared by several applications on the computer.
+- GAC solves the problem of DLL versioning. GAC can hold two assemblies of the same name but different version. This ensures that applications which access a particulat assembly, continue to access the same assembly, even if another version of that assembly is installed on that machine.
+
 #### What is the largest number you can work with in C#?
 
 - It depends on the numeric type. The limits for integer types are listed in Microsoft's table for max.
+- For example,
+  - the largest _sbyte (8-bit signed integer)_ is: 127;
+  - the largest _int (32-bit signed integer type)_ is: 2,147,483,647;
+  - the largest _ulong (64-bit unsigned integer type)_ is: 18,446,744,073,709,551,615;
+  - the largest _double (64-bit double-precision floating point type)_ is: 1.79769313486232e308;
+  - the largest _decimal (128-bit decimal type for financial and monetary calculations)_ is: 7.9 x 10e28.
+
+---
 
 ### Database
 
@@ -2743,3 +3076,7 @@ class Derived extends Base
 # Advanced
 
 - Work In Progress...
+
+```
+
+```
