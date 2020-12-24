@@ -3321,31 +3321,131 @@ void TraceMethod()
 
 #### What is continuous integration? Why is CI important?
 
+- Continuous integration (CI) is the practice of automating the integration of code changes from multiple contributors into a single software project. It allows developers to frequently merge code changes into a central repository where builds and tests then run. Automated tools are used to assert the new code’s correctness before integration.
+- A source code version control system is the crux of the CI process. The version control system is also supplemented with other checks like automated code quality tests, syntax style review tools, and more.
+- Benefits:
+  - Enable scaling: enables organizations to scale in engineering team size, codebase size, and infrastructure, by minimizing code integration bureaucracy and communication overhead, CI helps build DevOps and agile workflows.
+  - Improve the feedback loop: Faster feedback on business decisions. Changes can be rapidly pushed and measured for success. Bugs or other issues can be quickly addressed and repaired.
+  - Enhance communication: improves overall engineering communication and accountability, which enables greater collaboration between development and operations in a DevOps team. By introducing pull request workflows tied to CI, allows developers to observe and comment on code from other team members.
+
 #### Why are tests important in the CI workflow?
+
+- If you test and deploy code more frequently, it will eventually reduce the risk level of the project you are working on as you can detect bugs and code defects earlier. This means they are easier to fix and you can fix them sooner which makes it cheaper to fix them.
 
 #### Name some software that help the CI workflow!
 
+- Software development tool providers have started offering full CI-as-a-service offerings:
+  - Bitbucket Pipelines (offered by Atlassian)
+  - Jenkins
+  - AWS CodePipeline (Amazon Web Services)
+  - CircleCI
+  - Azure Pipelines
+  - GitLab
+  - Atlassian Bamboo
+
 #### What is Continuous Delivery?
+
+- Continuous Delivery is the ability to get changes of all types—including new features, configuration changes, bug fixes and experiments—into production, or into the hands of users, safely and quickly in a sustainable way.
+- Continuous delivery is an extension of continuous integration since it automatically deploys all code changes to a testing and/or production environment after the build stage.
 
 #### What is Continuous Deployment?
 
+- Continuous Deployment (CD) is a software release process that uses automated testing to validate if changes to a codebase are correct and stable for immediate autonomous deployment to a production environment.
+- Continuous deployment goes one step further than continuous delivery. With this practice, every change that passes all stages of your production pipeline is released to your customers.
+
 #### What is DevOps?
+
+- DevOps is a set of practices that works to automate and integrate the processes between software development and IT teams, so they can build, test, and release software faster and more reliably. It unites agile, git, continuous delivery, automation, and much more, to help development and operations teams be more efficient, innovate faster, and deliver higher value to businesses and customers.
 
 ### Software Methodologies
 
 #### What kind of software-lifecycle models do you know?
 
+- Agile development
+  - Advantages
+    - Decrease the time required to avail some system features.
+    - Face to face communication and continuous inputs from customer representative leaves no space for guesswork.
+    - The end result is the high-quality software in the least possible time duration and satisfied customer.
+  - Disadvantages
+    - The ability and collaboration of the customer to be interactive to express user needs.
+    - Needs special skills for the team.
+- Waterfall Model
+  - Advantages
+    - Easy to explain to the users.
+    - Stages and activities are well defined.
+    - Verification at each stage ensures early detection of errors/misunderstanding.
+  - Disadvantages
+    - Assumes that the requirements of a system can be frozen.
+    - Very difficult to go back to any stage after it finished.
+    - A little flexibility and adjusting scope is difficult and expensive.
+    - Costly and required more time, in addition to the detailed plan.
+- Other examples: V-Shaped Model, Spiral Model, Iterative and Incremental Method, Evolutionary Prototyping Model and more.
+
 #### What is a UML diagram? What kind of diagram types do you know?
+
+- UML stands for Unified Modeling Language. It’s a rich language to model software solutions, application structures, system behavior and business processes.
+- There are two main UML diagram types; structure diagrams and behavioral diagrams
+  - Structure Diagrams Examples: Class Diagram, Component Diagram, Deployment Diagram, Object Diagram, Package Diagram, Profile Diagram, Composite Structure Diagram.
+  - Behavioral Diagrams Examples: Use Case Diagram, Activity Diagram, State Machine Diagram, Sequence Diagram, Communication Diagram, Interaction Overview Diagram, Timing Diagram.
 
 #### What is a UML class diagram? What are the typical elements?
 
+- The UML Class diagram is a graphical notation used to construct and visualize object oriented systems. A class diagram in the Unified Modeling Language (UML) is a type of static structure diagram that describes the structure of a system by showing the system's:
+  - classes,
+  * their attributes,
+  * operations (or methods),
+  * and the relationships among objects.
+
 #### What kind of design patterns do you know? Bring at least 3 examples.
+
+- In software engineering, a design pattern is a general repeatable solution to a commonly occurring problem in software design. A design pattern isn't a finished design that can be transformed directly into code. It is a description or template for how to solve a problem that can be used in many different situations.
+
+1. Creational design patterns examples:
+
+- Abstract Factory: Creates an instance of several families of classes
+- Builder: Separates object construction from its representation
+- Factory Method: Creates an instance of several derived classes
+- Singleton: A class of which only a single instance can exist
+
+2. Structural design patterns examples:
+
+- Adapter: Match interfaces of different classes
+- Bridge: Separates an object’s interface from its implementation
+- Composite: A tree structure of simple and composite objects
+- Decorator: Add responsibilities to objects dynamically
+
+3. Behavioral design patterns examples:
+
+- Chain of responsibility: A way of passing a request between a chain of objects
+- Command: Encapsulate a command request as an object
+- Interpreter: A way to include language elements in a program
+- Iterator: Sequentially access the elements of a collection
 
 #### What is the purpose of the Iterator Pattern?
 
+- The Iterator Pattern is a behavioral design pattern that provides a way to access the elements of an aggregate object (like a list) sequentially without exposing its underlying representation.
+- The key idea is to take the responsibility for access and traversal out of the aggregate object and put it into an Iterator object that defines a standard traversal protocol.
+- The Iterator abstraction is fundamental to an emerging technology called "generic programming". This strategy seeks to explicitly separate the notion of "algorithm" from that of "data structure". The motivation is to: promote component-based development, boost productivity, and reduce configuration management.
+
 #### What do you know about the SOLID principles?
 
+- SOLID is an acronym for the first five object-oriented design (OOD) principles by Robert C. Martin (also known as Uncle Bob).
+
+1. S - Single-responsiblity Principle
+   - A class should have one and only one reason to change, meaning that a class should have only one job.
+2. O - Open-closed Principle
+   - Objects or entities should be open for extension but closed for modification. This means that a class should be extendable without modifying the class itself.
+3. L - Liskov Substitution Principle
+   - Every subclass or derived class should be substitutable for their base or parent class.
+4. I - Interface Segregation Principle
+   - A client should never be forced to implement an interface that it doesn’t use, or clients shouldn’t be forced to depend on methods they do not use.
+5. D - Dependency Inversion Principle
+   - Entities must depend on abstractions, not on concretions. It states that the high-level module must not depend on the low-level module, but they should depend on abstractions.
+
 #### How would you separate data storage code and business logic code (which uses stored data) in an application?
+
+- Using the The Model-View-Controller (MVC) design pattern.
+- It separates an application into three main groups of components: Models(data storage code ), Views(presentation code), and Controllers (business logic code ).
 
 ## Computer science
 
