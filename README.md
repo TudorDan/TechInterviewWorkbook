@@ -3083,17 +3083,85 @@ void TraceMethod()
 
 #### What is n-tier (or multi-tier) architecture?
 
+- N-tier architecture would involve dividing an application into three different tiers. These would be the:
+  1. Presentation Tier
+  - The top-most level of application is the user interface (UI). The main function of the interface is to translate tasks and results to something the user can understand.
+  2. Logic Tier
+  - This layer coordinates the application, processes commands, makes logical decisions and evaluations and performs calculations. It also moves and processes data between the two surrounding layers.
+  3. Data Tier
+  - Here information is stored and retrieved from database or file system. The information is then passed back to the logic tier for processing, and then eventually back to the user.
+
 #### What are microservices? Advantages and disadvantages?
+
+- A microservices architecture consists of a collection of small, autonomous services. Each service is self-contained and should implement a single business capability.
+- Microservices are small, independent, and loosely coupled. Each service is a separate codebase, can be deployed independently; a team can update an existing service without rebuilding and redeploying the entire application.
+- Services are responsible for persisting their own data or external state. This differs from the traditional model, where a separate data layer handles data persistence.
+- Services communicate with each other by using well-defined APIs. Internal implementation details of each service are hidden from other services.
+- Services don't need to share the same technology stack, libraries, or frameworks.
+  ![Microservices Architecture Example](microservices-logical.png)
+- Advantages
+  - _Agility_: it's easier to manage bug fixes and feature releases.
+  - _Small, focused teams_: promote greater agility.
+  - _Small code base_: minimizes dependencies, and that makes it easier to add new features.
+  - _Mix of technologies_: Teams can pick the technology that best fits their service.
+  - _Fault isolation_: If an individual microservice becomes unavailable, it won't disrupt the entire application.
+  - _Scalability_: Services can be scaled independently, letting you scale out subsystems that require more resources, without scaling out the entire application.
+  - _Data isolation_: easier to perform schema updates, because only a single microservice is affected.
+- Disadvantages
+  - _Complexity_: has more moving parts than the equivalent monolithic application.
+  - _Development and testing_: existing tools are not always designed to work with service dependencies; challenging to test service dependencies, especially when the application is evolving quickly.
+  - _Lack of governance_: so many different languages and frameworks that the application becomes hard to maintain; especially applies to cross-cutting functionality such as logging.
+  - _Network congestion and latency_: many small, granular services can result in more interservice communication.
+  - _Data integrity_: data consistency can be a challenge.
+  - _Management_: Correlated logging across services can be challenging.
+  - _Versioning_: Updates to a service must not break services that depend on it.
+  - _Skillset_: teams have to have the skills and experience to be successful.
+- Scalability is the ability of a system to handle increased load.
 
 #### What is Separation of Concerns?
 
+- It is architectral design principle which asserts that software should be separated based on the kinds of work it performs.
+- Applications can be logically built to follow this principle by separating core business behavior from infrastructure and user-interface logic.
+- Business rules and logic should reside in a separate project, which should not depend on other projects in the application. Separation helps ensure that the business model is easy to test and can evolve without being tightly coupled to low-level implementation details.
+
 #### What is a layered design and why is it important in enterprise applications?
+
+- As applications grow in complexity, one way to manage that complexity is to break up the application according to its responsibilities or concerns. This approach follows the separation of concerns principle.
+- By organizing code into layers, common low-level functionality can be reused throughout the application, following the don't repeat yourself (DRY) principle.
+- Layers can also make it easier to swap out implementations for testing purpose; these layers can be replaced at test time with fake implementations that provide known responses to requests, which makes tests much easier to write and much faster to run.
 
 #### What is Dependency Injection?
 
+- When class A uses some functionality of class B, then its said that class A has a _dependency_ of class B.
+- Dependencies can be injected at runtime rather than at compile time.
+- Transferring the task of creating the object to someone else and directly using the dependency is called dependency injection.
+- There are basically three types of dependency injection:
+  1. constructor injection: the dependencies are provided through a class constructor.
+  2. setter injection: the client exposes a setter method that the injector uses to inject the dependency.
+  3. interface injection: the dependency provides an injector method that will inject the dependency into any client passed to it. Clients must implement an interface that exposes a setter method that accepts the dependency.
+- _Inversion of control (IoC)_ — the concept behind DI - states that a class should not configure its dependencies statically but should be configured by some other class from outside.
+  - It is the fifth principle of S.O.L.I.D — the five basic principles of object-oriented programming and design by Uncle Bob — which states that a class should depend on abstraction and not upon concretions (in simple terms, hard-coded).
+  - According to the principles, a class should concentrate on fulfilling its responsibilities and not on creating objects that it requires to fulfill those responsibilities. And that’s where dependency injection comes into play: it provides the class with the required objects.
+- Benefits of using DI
+  - Helps in Unit testing.
+  - Boiler plate code is reduced, as initializing of dependencies is done by the injector component.
+  - Extending the application becomes easier.
+  - Helps to enable loose coupling, which is important in application programming.
+
 #### What is the DAO pattern? When and how to implement?
 
+- The Data Access Object (DAO) pattern is a structural pattern that allows us to isolate the application/business layer from the persistence layer (usually a relational database, but it could be any other persistence mechanism) using an abstract API.
+- The functionality of this API is to hide from the application all the complexities involved in performing CRUD operations in the underlying storage mechanism. This permits both layers to evolve separately without knowing anything about each other.
+
 #### What is SOA? When to use?
+
+- Service-Oriented Architecture (SOA) means that you structure the architecture of your application by decomposing it into several services (most commonly as HTTP services) that can be classified in different types like subsystems or, in other cases, as tiers.
+- SOA provides the infrastructure for the idea of how two independent business entities communicate and work together. For example, a bank that offers Stock services, a travel site with the feature to book a flight, a hotel, a car or even a holiday package and so on., weather updates and currency rates, and so on. All such activities take place due to B2B integration and SOA is the oxygen for such type of business activities.
+- SOA is intended to provide loosely-coupled interaction among applications. Benefits offered by SOA are as follows:
+  - Agility. Enables your business to adapt to changes quickly.
+  - Productivity. Can implement complex applications using SOA more easily than with other architectural styles.
+  - Reusability. Able to reuse your services across systems instead of rewriting the same modules again and again in every system or specific to an individual system.
+  - Reduced cost. Software Architects think of Build vs. Buy vs. Reuse, SOA based approach allows either buying or reusing this feature/functionality, hence in most cases the cost is saved by reusing the existing services There are many commonly used services available for free.
 
 ### Testing
 
