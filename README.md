@@ -3167,17 +3167,155 @@ void TraceMethod()
 
 #### What are unit test, integration test, system test, regression test, acceptance test? What is the major difference between these?
 
+- _Unit testing_ is a level of software testing where individual units/components of a software are tested. The purpose is to validate that each unit of the software performs as designed. A unit is the smallest testable part of any software. In most programming languages, that is a function, a subroutine, a method or property.
+- _Integration testing_ is a level of software testing where individual units are combined and tested as a group. The purpose of this level of testing is to expose faults in the interaction between integrated units. Test drivers and test stubs(programs that simulate the behaviours of software components) are used to assist in Integration Testing.
+- _Regression testing_ is a type of software testing that intends to ensure that changes (enhancements or defect fixes) to the software have not adversely affected it. The likelihood of any code changes impacting functionalities that are not directly associated with the code is always there and it is essential that regression testing is conducted to make sure that fixing one thing has not broken another thing.
+- _Acceptance testing_ is a level of software testing where a system is tested for acceptability. The purpose of this test is to evaluate the system’s compliance with the business requirements and assess whether it is acceptable for delivery.
+- _System testing_ is a level of software testing where a complete and integrated software is tested. The purpose of this test is to evaluate the system’s compliance with the specified requirements.
+
 #### What is code coverage? Why is it used? How you can measure?
+
+- Code coverage is the percentage of code which is covered by automated tests. Code coverage measurement simply determines which statements in a body of code have been executed through a test run, and which statements have not. In general, a code coverage system collects information about the running program and then combines that with source information to generate a report on the test suite's code coverage.
+- To calculate the code coverage percentage, simply use the following formula:
+- Code Coverage Percentage = (Number of lines of code executed by a testing algorithm/Total number of lines of code in a system component) \* 100.
 
 #### What does mocking mean? How would you do it 'manually' (i. e. without using any fancy framework)?
 
+- Mocking is a process used in unit testing when the unit being tested has external dependencies.
+- The purpose of mocking is to isolate and focus on the code being tested and not on the behavior or state of external dependencies.
+- In mocking, the dependencies are replaced by closely controlled replacements objects that simulate the behavior of the real ones. There are three main possible types of replacement objects - fakes, stubs, and mocks.
+- _Dummy_: objects that are passed around but never actually used. Usually they are just used to fill parameter lists.
+- _Fake_: objects with limited capabilities (for the purposes of testing), e.g. a fake web service.
+- _Stubs_: objects that provide predefined answers to method calls.
+- _Spies_ are stubs that also record some information based on how they were called. One form of this might be an email service that records how many messages it was sent.
+- _Mocks_: objects on which you set expectations.
+
+  ```c#
+  public class UserDetail
+  {
+    public string Name { get; set; }
+    public string Role { get; set; }
+  }
+  public interface IUserStore
+  {
+    string GetUserRole(string username);
+  }
+  public class StubUserStore : IUserStore
+  {
+    public string GetUserRole(string username)
+    {
+      return "contributor";
+    }
+    public List<UserDetail> GetAllUsers()
+    {
+      return new List<UserDetail>()
+      {
+        new UserDetail{ Role = "administrator", Name = "admin"},
+        new UserDetail(){ Role = "contributor", Name = "User 1"}
+      };
+    }
+  }
+  public class FakeUserStore : IUserStore
+  {
+    public string GetUserRole(string username)
+    {
+      if (username == "admin")
+        return "administrator";
+      else
+        return "contributor";
+    }
+  }
+  public class SpyUserStore : IUserStore
+  {
+    private static int Counter { get; set; }
+    public SpyUserStore()
+    {
+      Counter = 0;
+    }
+    public string GetUserRole(string username)
+    {
+      if (Counter >= 1)
+        throw new Exception("Function called more than once");
+    Counter++;
+    if (username == "admin")
+      return "administrator";
+    else
+      return "contributor";
+    }
+  }
+  Mock<IUserStore> mockedUserStore = new Mock<IUserStore>();
+  mockedUserStore.Setup(func => func.GetUserRole("admin")).Returns("administrator");
+  mockedUserStore.Setup(func => func.GetUserRole("user1")).Returns("contributor");
+  mockedUserStore.Setup(func => func.GetUserRole("user2")).Returns("basic");
+  ```
+
 #### What is a test case? What is an assertion? Give examples!
+
+- A _test case_ is a set of actions executed to verify a feature or functionality of your software application. A test case contains test steps, test data, precondition, postcondition developed for specific test scenario to verify any requirement. Examples:
+  1. Enter valid User Name and valid Password
+  2. Enter valid User Name and invalid Password
+  3. Enter invalid User Name and valid Password
+  4. Enter invalid User Name and invalid Password
+- An _assertion_ is a bool expression at a specific point in a program which will be true unless there is a bug in the program. A test assertion is defined as an expression, which encapsulates some testable logic specified about a target under test.
+  ```c#
+  int IntegerDivide ( int dividend , int divisor )
+  {
+    Debug.Assert ( divisor != 0 );
+    return ( dividend / divisor );
+  }
+  ```
 
 #### What is TDD? What are the benefits?
 
+- Test Driven Development (TDD) is a software development practice enabling developers to create proper specifications about how their code should be written and implemented. Fundamentally, TDD is a practice when a programmer writes a functional test before building a code.
+- This process includes the following stages:
+  1. Writing a test that fails because of code absence (red).
+  2. Writing a code after which the test is passed (green).
+  3. Refactoring - checking the code structure and its improvement without changing its external behavior. The expected result of refactoring is obtaining a perfectly written code.
+- Benefits:
+  - Better program design and higher code quality
+  - Detailed project documentation
+  - Reduces the time required for project development
+  - Code flexibility and easier maintenance
+  - Reliability of the developed solution
+  - Save project costs in the long run
+
 #### What are the unit testing best practices? (Eg. how many assertion should a test case contain?)
 
+- Good test name
+- Arrange your test in Arrange, Act and Assert
+- Write minimal passing tests
+- Avoid magic strings
+- Avoid logic in tests
+- Avoid multiple asserts (only one assert per test)
+- Test public interfaces
+- Verify one use case per test
+- Try to only include one Assert per test. Create a separate test for each assert. Use parameterized tests.
+
 #### What is arrange/act/assert pattern?
+
+- The AAA (Arrange, Act, Assert) pattern is a common way of writing unit tests for a method under test.
+- The _Arrange_ section of a unit test method initializes objects and sets the value of the data that is passed to the method under test.
+- The _Act_ section invokes the method under test with the arranged parameters.
+- The _Assert_ section verifies that the action of the method under test behaves as expected.
+
+  ```c#
+  [TestMethod]
+  public void Withdraw_ValidAmount_ChangesBalance()
+  {
+      // arrange
+      double currentBalance = 10.0;
+      double withdrawal = 1.0;
+      double expected = 9.0;
+      var account = new CheckingAccount("JohnDoe", currentBalance);
+
+      // act
+      account.Withdraw(withdrawal);
+
+      // assert
+      Assert.AreEqual(expected, account.Balance);
+  }
+  ```
 
 ### DevOps
 
