@@ -3303,17 +3303,17 @@ void TraceMethod()
   [TestMethod]
   public void Withdraw_ValidAmount_ChangesBalance()
   {
-      // arrange
-      double currentBalance = 10.0;
-      double withdrawal = 1.0;
-      double expected = 9.0;
-      var account = new CheckingAccount("JohnDoe", currentBalance);
+    // arrange
+    double currentBalance = 10.0;
+    double withdrawal = 1.0;
+    double expected = 9.0;
+    var account = new CheckingAccount("JohnDoe", currentBalance);
 
-      // act
-      account.Withdraw(withdrawal);
+    // act
+    account.Withdraw(withdrawal);
 
-      // assert
-      Assert.AreEqual(expected, account.Balance);
+    // assert
+    Assert.AreEqual(expected, account.Balance);
   }
   ```
 
@@ -3399,27 +3399,21 @@ void TraceMethod()
 #### What kind of design patterns do you know? Bring at least 3 examples.
 
 - In software engineering, a design pattern is a general repeatable solution to a commonly occurring problem in software design. A design pattern isn't a finished design that can be transformed directly into code. It is a description or template for how to solve a problem that can be used in many different situations.
-
-1. Creational design patterns examples:
-
-- Abstract Factory: Creates an instance of several families of classes
-- Builder: Separates object construction from its representation
-- Factory Method: Creates an instance of several derived classes
-- Singleton: A class of which only a single instance can exist
-
-2. Structural design patterns examples:
-
-- Adapter: Match interfaces of different classes
-- Bridge: Separates an object’s interface from its implementation
-- Composite: A tree structure of simple and composite objects
-- Decorator: Add responsibilities to objects dynamically
-
-3. Behavioral design patterns examples:
-
-- Chain of responsibility: A way of passing a request between a chain of objects
-- Command: Encapsulate a command request as an object
-- Interpreter: A way to include language elements in a program
-- Iterator: Sequentially access the elements of a collection
+  - Creational design patterns examples:
+    - Abstract Factory: Creates an instance of several families of classes
+    - Builder: Separates object construction from its representation
+    - Factory Method: Creates an instance of several derived classes
+    - Singleton: A class of which only a single instance can exist
+  - Structural design patterns examples:
+    - Adapter: Match interfaces of different classes
+    - Bridge: Separates an object’s interface from its implementation
+    - Composite: A tree structure of simple and composite objects
+    - Decorator: Add responsibilities to objects dynamically
+  - Behavioral design patterns examples:
+    - Chain of responsibility: A way of passing a request between a chain of objects
+    - Command: Encapsulate a command request as an object
+    - Interpreter: A way to include language elements in a program
+    - Iterator: Sequentially access the elements of a collection
 
 #### What is the purpose of the Iterator Pattern?
 
@@ -3453,21 +3447,72 @@ void TraceMethod()
 
 #### What is the difference between Stack and Queue data structure?
 
+- A _stack_ is a linear data structure in which elements can be inserted and deleted only from one side of the list, called the top. A _stack_ follows the LIFO (Last In First Out) principle, i.e., the element inserted at the last is the first element to come out.
+- A _queue_ is a linear data structure in which elements can be inserted only from one side of the list called rear, and the elements can be deleted only from the other side called the front. The _queue_ data structure follows the FIFO (First In First Out) principle, i.e. the element inserted at first in the list, is the first element to be removed from the list
+
 #### What is a graph? What are simple graphs? What are directed graphs? What are weighted graphs?
+
+- A Graph is a non-linear data structure consisting of nodes and edges.There are two main parts of a graph:
+  - The vertices (nodes) where the data is stored
+  - The edges (connections, lines) which connect the nodes.
+- A _simple graph_ is a graph with no loops(a graph which joins a vertex to itself, also called a self-loop) and no multiple edges(two or more edges connecting the same two vertices ).
+- A _directed graph (or digraph)_ is a graph where the edges point in a direction. It is a set of vertices and a collection of directed edges that each connects an ordered pair of vertices. We say that a directed edge points from the first vertex in the pair and points to the second vertex in the pair.
+- An _undirected graph_ is a set of objects (called vertices or nodes) that are connected together, where all the edges are bidirectional. An _undirected graph_ is sometimes called an _undirected network_.
+- A _weighted graph_ is a graph in which each branch is given a numerical weight. A weighted graph is therefore a special type of labeled graph in which the labels are numbers (which are usually taken to be positive).
 
 #### What are trees? What are binary trees? What are binary search trees?
 
+- A _tree_ is an undirected graph in which any two vertices are connected by exactly one path, and does not contain even a single cycle.
+- A _binary tree_ is a tree-type non-linear data structure in which each node has at most two children, which are referred to as the left child and the right child.
+- A _binary tree_ has the benefits of both an ordered array and a linked list as search is as quick as in a sorted array and insertion or deletion operation are as fast as in linked list.
+- A _binary search tree_ is a binary tree data structure which has the following properties:
+  - The left subtree of a node contains only nodes with keys lesser than the node’s key.
+  * The right subtree of a node contains only nodes with keys greater than the node’s key.
+  * The left and right subtree each must also be a binary search tree.
+
 #### How can you store graphs in programs? What are the advantages/disadvantages per each?
+
+- You can store a graph using:
+  - Nodes as objects with pointers to one another
+  - A matrix of edge weights
+- Nodes as objects with pointers to one another
+  - The memory complexity for this approach is O(n) because you have as many objects as you have nodes. The number of pointers (to nodes) required is up to O(n^2) as each node object may contain pointers for up to n nodes.
+  - The time complexity for this data structure is O(n) for accessing any given node.
+- Storing a matrix of edge weights
+  - This would be a memory complexity of O(n^2) for the matrix.
+  - The advantage with this data structure is that the time complexity to access any given node is O(1).
 
 #### What are graph traversal algorithms? What is BFS, how does it work? What is DFS, how does it work?
 
+- Graph traversal algorithms are used to visit nodes in graph.
+- The Breadth First Search (BFS) traversal is an algorithm, which is used to visit all of the nodes of a given graph. In this traversal algorithm one node is selected and then all of the adjacent nodes are visited one by one. After completing all of the adjacent vertices, it moves further to check another vertices and checks its adjacent vertices again.
+- The Depth First Search (DFS) is a graph traversal algorithm. In this algorithm one starting vertex is given, and when an adjacent vertex is found, it moves to that adjacent vertex first and try to traverse in the same manner.
+
 #### How does dictionary work?
 
+- Dictionary is a collection that stores key-value pairs in no particular order.
+- In C# language:
+  - Keys must be unique and cannot be null.
+  - Values can be null or duplicate.
+  - Values can be accessed by passing associated key in the indexer e.g. myDictionary[key].
+
 #### Why is it important for keys in a hashmap to have an immutable type? (Consider string for example.)
+
+- If immutable, the object's hash code won’t change and it allows caching the hash code of different keys which makes the overall retrieval process very fast.
 
 ### Algorithms
 
 #### What is QuickSort? Describe the main logic of this sorting algorithm.
+
+- Quicksort is a divide-and-conquer algorithm.
+- It works by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot. The sub-arrays are then sorted recursively.
+  1. Consider the first element of the list as pivot (i.e., Element at first position in the list).
+  2. Define two variables i and j. Set i and j to first and last elements of the list respectively.
+  3. Increment i until list[i] > pivot then stop.
+  4. Decrement j until list[j] < pivot then stop.
+  5. If i < j then exchange list[i] and list[j].
+  6. Repeat steps 3,4 & 5 until i > j.
+  7. Exchange the pivot element with list[j] element.
 
 ## Software design
 
@@ -3475,13 +3520,43 @@ void TraceMethod()
 
 #### What is OAuth2?
 
+- OAuth 2 is an authorization framework that enables applications to obtain limited access to user accounts on an HTTP service, such as Facebook, GitHub, and DigitalOcean.
+- It works by delegating user authentication to the service that hosts the user account, and authorizing third-party applications to access the user account. OAuth 2 provides authorization flows for web and desktop applications, and mobile devices.
+
 #### What is Basic Authentication?
+
+- Basic authentication is a simple authentication scheme built into the HTTP protocol. The client sends HTTP requests with the Authorization header that contains the word Basic word followed by a space and a base64-encoded string username:password. For example, to authorize as demo / p@55w0rd the client would send:
+  ```
+  Authorization: Basic ZGVtbzpwQDU1dzByZA==
+  ```
+- Basic authentication, or “basic auth” is formally defined in the Hypertext Transfer Protocol standard, RFC 1945. When a client (your browser) connects to a web server, it sends a “WWW-Authenticate: Basic” message in the HTTP header.
+  - Shortly after that, it sends your login credentials to the server using a mild obfuscation technique called base64 encoding. When HTTPS is used, these credentials are protected, so it’s not considered insecure, which is why basic auth gained widespread use over the years.
+    -The biggest problem with basic auth has to do with the logging off the server, as most browsers tend to cache sessions and have inconsistently dealt with the need to properly close and clear connection states (or sessions) so that another (different) user couldn’t log back in by refreshing the browser.
 
 #### What is CORS, why it’s needed in browsers?
 
+- Cross-Origin Resource Sharing (CORS) is an HTTP-header based mechanism that allows a server to indicate any other origins (domain, scheme, or port) than its own from which a browser should permit loading of resources.
+- Is a W3C standard that allows a server to relax the same-origin policy.
+- An API is not safer by allowing CORS. For example, a malicious actor could use Cross-Site Scripting (XSS) against your site and execute a cross-site request to their CORS enabled site to steal information.
+- Allows a server to explicitly allow some cross-origin requests while rejecting others.
+- Is safer and more flexible than earlier techniques, such as JSONP.
+
 #### How can you initialize a CSRF attack?
 
+- Cross-Site Request Forgery (CSRF) is an attack that forces an end user to execute unwanted actions on a web application in which they’re currently authenticated.
+- With social engineering (such as sending a link via email or chat), an attacker may trick the users of a web application into executing actions of the attacker’s choosing.
+- A successful CSRF attack can force the user to perform state changing requests like transferring funds, changing their email address, and so forth. If the victim is an administrative account, CSRF can compromise the entire web application.
+- For example, in a typical GET request for a bank transfer, a hacker can modify this script so it results in a transfer to their own account.
+  - The hacker can embed the request into an innocent looking hyperlink, and distribute the hyperlink via email to a large number of bank customers.
+    - Those who click on the link while logged into their bank account will unintentionally initiate the transfer.
+      - If the bank’s website is only using POST requests, the attack could be delivered in a <form> tag with automatic execution of the embedded JavaScript.
+
 #### What is JWT used for? Where to store it on client side?
+
+- JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object.
+- JWT is a token that is issued by the server. The token has a JSON payload that contains information specific to the user. This token can be used by clients when talking to APIs (by sending it along as an HTTP header) so that the APIs can identify the user represented by the token, and take user specific action.
+- JWT also contains a signature. This signature is created by the server that issued the token (let’s say your login endpoint) and any other server that receives this token can independently verify the signature.
+- JWTs have an expiry value. Common practice is to keep it around 15 minutes, so that any leaked JWTs will cease to be valid fairly quickly.
 
 ### Threaded programming
 
