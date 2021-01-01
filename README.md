@@ -108,7 +108,7 @@ while not finished:                 # we keep looping until we finished sorting 
 
 #### What are the main parts of a function?
 
-- The mai parts of a function are: _parameters_, _function body_, _variables_, _statements_, _expressions_, _function call_ and _arguments (input parameters)_.
+- The main parts of a function are: _parameters_, _function body_, _variables_, _statements_, _expressions_, _function call_ and _arguments (input parameters)_.
 
 ---
 
@@ -226,7 +226,7 @@ print(animals[1:-1]) # ['dog', 'fish']
 
 #### What is the purpose of the in and not in membership operators in Python?
 
-- Membership operators like _in_ and _not in_ are operators used to validate the membership of a value. It test for membership in a sequence, such as strings, lists, or tuples.
+- Membership operators like _in_ and _not in_ are operators used to validate the membership of a value. They test for membership in a sequence, such as strings, lists, or tuples.
 
 #### What does the + operator mean when used with strings in Python?
 
@@ -373,7 +373,7 @@ print_kwargs(**my_dict)
     - improper variable scopes (global, local)
   - Remove cleverness: If it's simple and elegant you wouldn't refer to it as 'clever'
   - Remove the 3 D's: duplication, duplication, duplication
-    - his can be applied by extracting the duplicated code parts into functions
+    - this can be applied by extracting the duplicated code parts into functions
 
 ---
 
@@ -432,8 +432,8 @@ According to Agile software development:
 
 #### What is UNIX and what is Linux?
 
-- UNIX is an operating system that was born in the late 1960s, when AT&T Bell Labs released an operating system called Unix written in C, which allows quicker modification, acceptance, and portability. It began as a one-man project under the leadership of Ken Thompson of Bell Labs. It went on to become most widely used operating systems. Unix is a proprietary operating system. Unix is a proprietary operating system.
-- Linux is a replica of UNIX that does not use its code built by Linus Torvalds at the University of Helsinki in 1991. The name "Linux" comes from the Linux kernel. It is free and open source software.
+- UNIX is an operating system that was born in the late 1960s, when AT&T Bell Labs released an operating system called Unix written in C, which allows quicker modification, acceptance, and portability. It began as a one-man project under the leadership of Ken Thompson of Bell Labs. It went on to become one of the most widely used operating systems. Unix is a proprietary operating system.
+- Linux is a replica of UNIX that does not use its code, built by Linus Torvalds at the University of Helsinki in 1991. The name "Linux" comes from the Linux kernel. It is free and open source software.
 
 #### What do we call the shell in Linux?
 
@@ -441,7 +441,7 @@ According to Agile software development:
 
 #### What does root means in a Linux environment?
 
-- Root is the user name or account that by default has access to all commands and files on a Linux or other UNIX-like operating systems. It is also referred to as the root account, root user and the superuser.
+- Root is the user name or account that by default has access to all commands and files on a Linux or other UNIX-like operating systems. It is also referred to as the _root account_, _root user_ or the _superuser_.
 
 #### How do you access your personal files in Linux?
 
@@ -1614,6 +1614,7 @@ Connection: Closed
 
 #### How to find the middle element of singly linked list in O(n)?
 
+- A "singly linked list" is a type of linked list that is unidirectional, that is, it can be traversed in only one direction from head to the last node (tail).
 - Traverse linked list using two pointers.
 - Move one pointer by one and other pointer by two.
 - When the fast pointer reaches end slow pointer will reach middle
@@ -1919,12 +1920,12 @@ public interface MyInterface {
 
 #### Could we access a static variable (or method) from a non-static method? Why?
 
-- Non-static methods can access any static method and static variable also, without using the object of the class.
+- Non-static methods can access any static method and static variable also, without using the object of the class, because static variables belong to a class and can be called from anywhere, depending upon their access modifier.
 
 #### Could we access a non-static variable (or method) from a static method? Why?
 
-- In static method, the method can only access only static data members and static methods of another class or same
-  class but cannot access non-static methods and variables.
+- In static method, the method can only access only static data members and static methods of another class or same class but cannot access non-static methods and variables, because for the non-static variable, there is a need for an object instance to call the variables.
+- However, in order to access a non-static variable/method from a static method in Java, you need to first create an object of the class whose non-static members or non-static method you want to access.
 
 #### How many instances you have of a static variable of a given class?
 
