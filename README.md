@@ -2417,7 +2417,7 @@ public class Example {
 - Integer MAX_VALUE is approx 2^31, which exceeds the 32bit memory.
 - A guess is that BigInteger can grow as large as your ram.
 
-#### When you use method overriding, can you change the access level of the method, from protected to public? Why?When you use method overriding, can you change the access level of the method, from public to protected? Why?
+#### When you use method overriding, can you change the access level of the method, from protected to public? Why?
 
 - Yes, we can override a method by changing only the access modifiers in java pertaining the following rule:
   - The access level cannot be more restrictive than the overridden method's access level.
@@ -2550,7 +2550,7 @@ class Derived extends Base
 
 - Languages like Java, C# and Python are strongly typed. In these the type conversion needs to be explicitly handled.
 - Strong typing means that the type check is done at compile time and weak typing means that the type check is done at run time. .NET languages incorporate strong typing.
-- For scripts, you will usually want weak typing, because you want to write as much less code as possible.
+- For scripts(JavaScript), you will usually want weak typing, because you want to write as much less code as possible.
 - In big programs, strong typing can reduce errors at compile time.
 
 #### What is a namespace?
@@ -2640,7 +2640,7 @@ class Derived extends Base
 - If your types use unmanaged resources, you should do the following:
   1. Implement the dispose pattern. This requires that you provide an IDisposable.Dispose implementation to enable the deterministic release of unmanaged resources. A consumer of your type calls Dispose when the object (and the resources it uses) are no longer needed. The Dispose method immediately releases the unmanaged resources.
   2. In the event that a consumer of your type forgets to call Dispose, provide a way for your unmanaged resources to be released. There are two ways to do this:
-  - Use a safe handle to wrap your unmanaged resource. This is the recommended technique. Safe handles are derived from the System.Runtime.InteropServices.SafeHandle abstract class and include a robust Finalize method. When you use a safe handle, you simply implement the IDisposable interface and call your safe handle's Dispose method in your IDisposable.Dispose implementation. The safe handle's finalizer is called automatically by the garbage collector if its Dispose method is not called.
+     - Use a safe handle to wrap your unmanaged resource. This is the recommended technique. Safe handles are derived from the System.Runtime.InteropServices.SafeHandle abstract class and include a robust Finalize method. When you use a safe handle, you simply implement the IDisposable interface and call your safe handle's Dispose method in your IDisposable.Dispose implementation. The safe handle's finalizer is called automatically by the garbage collector if its Dispose method is not called.
 
 #### Why to use keyword “const” in C#? Give an example.
 
@@ -2653,7 +2653,8 @@ class Derived extends Base
 
 #### What is the difference between “const” and “readonly” variables in C#?
 
-- const fields has to be initialized while declaration only, while readonly fields can be initialized at declaration or in the constructor.
+- a "readonly" field can't be assigned after the constructor exits.
+- const fields have to be initialized whith declaration only, while readonly fields can be initialized at declaration or in the constructor.
 - const variables can declared in methods ,while readonly fields cannot be declared in methods.
 - const fields cannot be used with static modifier, while readonly fields can be used with static modifier.
 - A const field is a compile-time constant, the readonly field can be used for run time constants.
@@ -2661,8 +2662,9 @@ class Derived extends Base
 #### What is a property in C#?
 
 - A property is a member that provides a flexible mechanism to read, write, or compute the value of a private field.
-- Properties can be used as if they are public data members, but they are actually special methods called _accessors_.
 - Properties enable a class to expose a public way of getting and setting values, while hiding implementation or verification code.
+- Properties can be used as if they are public data members, but they are actually special methods called _accessors_.
+- A get property accessor is used to return the property value, and a set property accessor is used to assign a new value.
 
 #### List out two different types of errors in C#?
 
@@ -2671,35 +2673,35 @@ class Derived extends Base
 
   1. Syntax Errors
 
-  - Syntax errors occur during development, when you make type mistake in code. For example, instead of writing while, you write WHILE then it will be a syntax error since C# is a case sensitive language:
+     - Syntax errors occur during development, when you make type mistake in code. For example, instead of writing while, you write WHILE then it will be a syntax error since C# is a case sensitive language:
 
-  ```c#
-  bool flag=true;
-  WHILE (flag) //syntax error, since c# is case sensitive
-  {
-  //TO DO:
-  }
-  ```
+     ```c#
+     bool flag=true;
+     WHILE (flag) //syntax error, since c# is case sensitive
+     {
+     //TO DO:
+     }
+     ```
 
   2. Runtime Errors (Exceptions)
 
-  - Runtime errors occur during execution of the program. These are also called exceptions. This can be caused due to improper user inputs, improper design logic or system errors:
+     - Runtime errors occur during execution of the program. These are also called exceptions. This can be caused due to improper user inputs, improper design logic or system errors:
 
-  ```c#
-  int a = 5, b = 0;
-  int result = a / b; // DivideByZeroException
-  ```
+     ```c#
+     int a = 5, b = 0;
+     int result = a / b; // DivideByZeroException
+     ```
 
-  - Exceptions can be handled by using try-catch blocks.
+     - Exceptions can be handled by using try-catch blocks.
 
   3. Logical Errors
 
-  - Logic errors occur when the program is written fine but it does not produce desired result. Logic errors are difficult to find because you need to know for sure that the result is wrong:
+     - Logic errors occur when the program is written fine but it does not produce desired result. Logic errors are difficult to find because you need to know for sure that the result is wrong:
 
-  ```c#
-  int a = 5, b = 6;
-  double avg = a + b / 2.0; // logical error, it should be (a + b) / 2.0
-  ```
+     ```c#
+     int a = 5, b = 6;
+     double avg = a + b / 2.0; // logical error, it should be (a + b) / 2.0
+     ```
 
 #### What is the difference between “out” and “ref” parameters in C#?
 
@@ -2738,16 +2740,16 @@ Foo(ref y); // Error: y should be initialized before calling the method
   - _protected_: The type or member can be accessed only by code in the same class, or in a class that is derived from that class.
   - _internal_: The type or member can be accessed by any code in the same assembly, but not from another assembly.
   - _protected internal_: The type or member can be accessed by any code in the assembly in which it's declared, or from within a derived class in another assembly.
-  - _private protected_: The type or member can be accessed only within its declaring assembly, by code in the same class or in a type that is derived from that class.
+  - _private protected_: The type or member can be accessed by types derived from the containing class, but only within its containing assembly. .
 
 #### What’s the difference between using `override` and `new` keywords when defining method in child class?
 
 - The “override” modifier extends the base class virtual method, and the “new” modifier hides an accessible base class method.
-- If the method in the derived class is not preceded by new or override keywords, the compiler will issue a warning and the method will behave as if the new keyword were present.
-- If the method in the derived class is preceded with the new keyword, the method is defined as being independent of the method in the base class.
-- If the method in the derived class is preceded with the override keyword, objects of the derived class will call that method instead of the base class method.
-- In order to apply the override keyword to the method in the derived class, the base class method must be defined “virtual”.
-- The base class method can be called from within the derived class using the base keyword.
+- If the method in the derived class is not preceded by “new” or “override” keywords, the compiler will issue a warning and the method will behave as if the “new” keyword were present.
+- If the method in the derived class is preceded with the “new” keyword, the method is defined as being independent of the method in the base class.
+  - The base class method can be called from within the derived class using the base keyword.
+- If the method in the derived class is preceded with the “override” keyword, objects of the derived class will call that method instead of the base class method.
+- In order to apply the “override” keyword to the method in the derived class, the base class method must be defined “virtual”.
 
 #### Explain StringBuilder class in C#!
 
@@ -2765,25 +2767,24 @@ Array.Reverse(ArrStr);
 
 #### Can you use a value type as a generic type argument in C#? For example when implementing an interface like (IEquatable).
 
-- Passing value types will give a compile-time error, so we cannot pass primitive data types or struct types.
 - In a generic type or method definition, a _type parameter_ is a placeholder for a specific type that a client specifies when they create an instance of the generic type.
 - C# allows you to define generic classes, interfaces, abstract classes, fields, methods, static methods, properties, events, delegates, and operators using the type parameter and without the specific data type.
 - In C#, data types are categorized based on how they store their value in the memory:
   1. Value type
-  - A data type is a value type if it holds a data value within its own memory space. It means the variables of these data types directly contain values.
-  - The following data types are all of value type: bool, byte, char, decimal, double, enum, float, int, long, sbyte,short, struct, uint, ulong, ushort.
+     - A data type is a value type if it holds a data value within its own memory space. It means the variables of these data types directly contain values.
+     - The following data types are all of value type: bool, byte, char, decimal, double, enum, float, int, long, sbyte,short, struct, uint, ulong, ushort.
   2. Reference Type
-  - Unlike value types, a reference type doesn't store its value directly. Instead, it stores the address where the value is being stored. In other words, a reference type contains a pointer to another memory location that holds the data.
-  - The followings are reference type data types: String, Arrays (even if their elements are value types), Class, Delegate
-  - The default value of a reference type variable is null when they are not initialized. Null means not refering to any object.
+     - Unlike value types, a reference type doesn't store its value directly. Instead, it stores the address where the value is being stored. In other words, a reference type contains a pointer to another memory location that holds the data.
+     - The followings are reference type data types: String, Arrays (even if their elements are value types), Class, Delegate
+     - The default value of a reference type variable is null when they are not initialized. Null means not refering to any object.
 
 #### What are Nullable Types in C#?
 
-- The Nullable types are instances of System.Nullable<T> struct.
+- A nullable type can represent the correct range of values for its underlying value type, plus an additional null value. For example, `Nullable<int>` can be assigned any value from -2147483648 to 2147483647, or a null value.
+- The Nullable types are instances of `System.Nullable<T>` struct.
 - A nullable of type int is the same as an ordinary int plus a flag that says whether the int has a value or not (is null or not).
-- A nullable type can represent the correct range of values for its underlying value type, plus an additional null value. For example, Nullable<int> can be assigned any value from -2147483648 to 2147483647, or a null value.
 - A value type cannot be assigned a null value. For example, int i = null will give you a compile time error.
-- You can use the '?' operator to shorthand the syntax e.g. int?, long? instead of using Nullable<T>.
+- You can use the '?' null-conditional operator to shorthand the syntax e.g. int?, long? instead of using `Nullable<T>`.
   ```c#
   int? i = null;
   double? D = null;
