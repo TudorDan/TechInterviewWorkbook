@@ -2783,6 +2783,7 @@ Array.Reverse(ArrStr);
 - A nullable type can represent the correct range of values for its underlying value type, plus an additional null value. For example, `Nullable<int>` can be assigned any value from -2147483648 to 2147483647, or a null value.
 - The Nullable types are instances of `System.Nullable<T>` struct.
 - A nullable of type int is the same as an ordinary int plus a flag that says whether the int has a value or not (is null or not).
+  - _Flag_ variable is used as a signal in programming to let the program know that a certain condition has met. It usually acts as a boolean variable indicating a condition to be either true or false.
 - A value type cannot be assigned a null value. For example, int i = null will give you a compile time error.
 - You can use the '?' null-conditional operator to shorthand the syntax e.g. int?, long? instead of using `Nullable<T>`.
   ```c#
@@ -2797,32 +2798,47 @@ Array.Reverse(ArrStr);
 
 #### What is delegate, event, callback, multicast delegate?
 
-- In computer programming, a callback is executable code that is passed as an argument to other code.
+- In computer programming, a _callback_ is executable code that is passed as an argument to other code.
 - C# has delegates for that purpose. They are heavily used with events, as an event can automatically invoke a number of attached delegates (event handlers).
 
 1. The delegate is a reference type data type that defines the method signature.
 
-```c#
-public delegate void MyDelegate(string msg);
-```
+   ```c#
+   public delegate void MyDelegate(string msg);
+   // set target method
+   MyDelegate del = new MyDelegate(MethodA);
+   // or set lambda expression
+   MyDelegate del = (string msg) =>  Console.WriteLine(msg);
+   // target method
+   static void MethodA(string message)
+   {
+      Console.WriteLine(message);
+   }
+   // Invoke a Delegate
+   del("Hello World!");
+   // Multicast Delegate
+   MyDelegate del2 = ClassB.MethodB;
+    del += del2;
+    del -= del2;
+   ```
 
-- The delegate can point to multiple methods. A delegate that points multiple methods is called a multicast delegate. The "+" or "+=" operator adds a function to the invocation list, and the "-" and "-=" operator removes it.
+   - The delegate can point to multiple methods. A delegate that points multiple methods is called a _multicast delegate_. The "+" or "+=" operator adds a function to the invocation list, and the "-" and "-=" operator removes it.
 
 2. An event is a notification sent by an object to signal the occurrence of an action.
 
-- The class who raises events is called Publisher, and the class who receives the notification is called Subscriber.
+   - The class who raises events is called Publisher, and the class who receives the notification is called Subscriber.
 
-```c#
-public delegate void Notify();  // delegate
-public class ProcessBusinessLogic
-{
-  public event Notify ProcessCompleted; // event
-}
-```
+   ```c#
+   public delegate void Notify();  // delegate
+   public class ProcessBusinessLogic
+   {
+     public event Notify ProcessCompleted; // event
+   }
+   ```
 
 #### What is enum in C#?
 
-- An enumeration type (or enum type) is a value type defined by a set of named constants of the underlying integral numeric type. To define an enumeration type, use the enum keyword and specify the names of enum members.
+- An enumeration type (or enum type) is a value type defined by a set of named constants of the underlying integral numeric type. To define an enumeration type, use the _enum_ keyword and specify the names of enum members.
 - By default, the associated constant values of enum members are of type int; they start with zero and increase by one following the definition text order.
 - You can explicitly specify any other integral numeric type as an underlying type of an enumeration type. You can also explicitly specify the associated constant values.
 
@@ -2875,7 +2891,12 @@ public class ProcessBusinessLogic
         Console.WriteLine("Hello, I'm some sort of animal!");
     }
   }
-  public class Dog : Animal {}
+  public class Dog : Animal
+  {
+    public Dog() : base()
+    {
+    }
+  }
   Animal animal = new Animal();
   animal.Greet();
   Dog dog = new Dog();
@@ -3035,6 +3056,8 @@ void TraceMethod()
 
 #### By what mechanism does NUnit know what methods to test?
 
+- By using the _Act_ section (calling the method we are targeting that particular test) of the AAA (Arrange, Act, Assert) testing pattern.
+
 #### What is the GAC? What problem does it solve?
 
 - Each computer where the Common Language Runtime(CLR) is installed has a machine-wide code cache called the Global Assembly Cache (GAC). The Global Assembly Cache stores assemblies specifically designated to be shared by several applications on the computer.
@@ -3087,11 +3110,11 @@ void TraceMethod()
 
 - N-tier architecture would involve dividing an application into three different tiers. These would be the:
   1. Presentation Tier
-  - The top-most level of application is the user interface (UI). The main function of the interface is to translate tasks and results to something the user can understand.
+     - The top-most level of application is the user interface (UI). The main function of the interface is to translate tasks and results to something the user can understand.
   2. Logic Tier
-  - This layer coordinates the application, processes commands, makes logical decisions and evaluations and performs calculations. It also moves and processes data between the two surrounding layers.
+     - This layer coordinates the application, processes commands, makes logical decisions and evaluations and performs calculations. It also moves and processes data between the two surrounding layers.
   3. Data Tier
-  - Here information is stored and retrieved from database or file system. The information is then passed back to the logic tier for processing, and then eventually back to the user.
+     - Here information is stored and retrieved from database or file system. The information is then passed back to the logic tier for processing, and then eventually back to the user.
 
 #### What are microservices? Advantages and disadvantages?
 
@@ -3108,6 +3131,7 @@ void TraceMethod()
   - _Mix of technologies_: Teams can pick the technology that best fits their service.
   - _Fault isolation_: If an individual microservice becomes unavailable, it won't disrupt the entire application.
   - _Scalability_: Services can be scaled independently, letting you scale out subsystems that require more resources, without scaling out the entire application.
+    - Scalability is the ability of a system to handle increased load.
   - _Data isolation_: easier to perform schema updates, because only a single microservice is affected.
 - Disadvantages
   - _Complexity_: has more moving parts than the equivalent monolithic application.
@@ -3118,7 +3142,6 @@ void TraceMethod()
   - _Management_: Correlated logging across services can be challenging.
   - _Versioning_: Updates to a service must not break services that depend on it.
   - _Skillset_: teams have to have the skills and experience to be successful.
-- Scalability is the ability of a system to handle increased load.
 
 #### What is Separation of Concerns?
 
@@ -3136,7 +3159,7 @@ void TraceMethod()
 
 - When class A uses some functionality of class B, then its said that class A has a _dependency_ of class B.
 - Dependencies can be injected at runtime rather than at compile time.
-- Transferring the task of creating the object to someone else and directly using the dependency is called dependency injection.
+- _Dependency Injection_ is a software design pattern for transferring the task of creating the object to someone else and directly using the dependency.
 - There are basically three types of dependency injection:
   1. constructor injection: the dependencies are provided through a class constructor.
   2. setter injection: the client exposes a setter method that the injector uses to inject the dependency.
@@ -3179,7 +3202,7 @@ void TraceMethod()
 
 - Code coverage is the percentage of code which is covered by automated tests. Code coverage measurement simply determines which statements in a body of code have been executed through a test run, and which statements have not. In general, a code coverage system collects information about the running program and then combines that with source information to generate a report on the test suite's code coverage.
 - To calculate the code coverage percentage, simply use the following formula:
-- Code Coverage Percentage = (Number of lines of code executed by a testing algorithm/Total number of lines of code in a system component) \* 100.
+  - Code Coverage Percentage = (Number of lines of code executed by a testing algorithm/Total number of lines of code in a system component) \* 100.
 
 #### What does mocking mean? How would you do it 'manually' (i. e. without using any fancy framework)?
 
@@ -3198,10 +3221,12 @@ void TraceMethod()
     public string Name { get; set; }
     public string Role { get; set; }
   }
+
   public interface IUserStore
   {
     string GetUserRole(string username);
   }
+
   public class StubUserStore : IUserStore
   {
     public string GetUserRole(string username)
@@ -3217,6 +3242,7 @@ void TraceMethod()
       };
     }
   }
+
   public class FakeUserStore : IUserStore
   {
     public string GetUserRole(string username)
@@ -3227,6 +3253,7 @@ void TraceMethod()
         return "contributor";
     }
   }
+
   public class SpyUserStore : IUserStore
   {
     private static int Counter { get; set; }
@@ -3238,13 +3265,14 @@ void TraceMethod()
     {
       if (Counter >= 1)
         throw new Exception("Function called more than once");
-    Counter++;
-    if (username == "admin")
-      return "administrator";
-    else
-      return "contributor";
+      Counter++;
+      if (username == "admin")
+        return "administrator";
+      else
+        return "contributor";
     }
   }
+
   Mock<IUserStore> mockedUserStore = new Mock<IUserStore>();
   mockedUserStore.Setup(func => func.GetUserRole("admin")).Returns("administrator");
   mockedUserStore.Setup(func => func.GetUserRole("user1")).Returns("contributor");
@@ -3260,10 +3288,10 @@ void TraceMethod()
   4. Enter invalid User Name and invalid Password
 - An _assertion_ is a bool expression at a specific point in a program which will be true unless there is a bug in the program. A test assertion is defined as an expression, which encapsulates some testable logic specified about a target under test.
   ```c#
-  int IntegerDivide ( int dividend , int divisor )
+  int IntegerDivide (int dividend , int divisor)
   {
-    Debug.Assert ( divisor != 0 );
-    return ( dividend / divisor );
+    Debug.Assert(divisor != 0);
+    return (dividend / divisor);
   }
   ```
 
@@ -3292,7 +3320,6 @@ void TraceMethod()
 - Avoid multiple asserts (only one assert per test)
 - Test public interfaces
 - Verify one use case per test
-- Try to only include one Assert per test. Create a separate test for each assert. Use parameterized tests.
 
 #### What is arrange/act/assert pattern?
 
@@ -3327,6 +3354,7 @@ void TraceMethod()
 - A source code version control system is the crux of the CI process. The version control system is also supplemented with other checks like automated code quality tests, syntax style review tools, and more.
 - Benefits:
   - Enable scaling: enables organizations to scale in engineering team size, codebase size, and infrastructure, by minimizing code integration bureaucracy and communication overhead, CI helps build DevOps and agile workflows.
+    - _Scalability_ is the ability of a system to handle growing amount of load without degrading performance.
   - Improve the feedback loop: Faster feedback on business decisions. Changes can be rapidly pushed and measured for success. Bugs or other issues can be quickly addressed and repaired.
   - Enhance communication: improves overall engineering communication and accountability, which enables greater collaboration between development and operations in a DevOps team. By introducing pull request workflows tied to CI, allows developers to observe and comment on code from other team members.
 
@@ -3347,7 +3375,7 @@ void TraceMethod()
 
 #### What is Continuous Delivery?
 
-- Continuous Delivery is the ability to get changes of all types—including new features, configuration changes, bug fixes and experiments—into production, or into the hands of users, safely and quickly in a sustainable way.
+- Continuous Delivery is the ability to get changes of all types — including new features, configuration changes, bug fixes and experiments — into production, or into the hands of users, safely and quickly in a sustainable way.
 - Continuous delivery is an extension of continuous integration since it automatically deploys all code changes to a testing and/or production environment after the build stage.
 
 #### What is Continuous Deployment?
@@ -3443,6 +3471,8 @@ void TraceMethod()
 - Using the The Model-View-Controller (MVC) design pattern.
 - It separates an application into three main groups of components: Models(data storage code ), Views(presentation code), and Controllers (business logic code ).
 
+---
+
 ## Computer science
 
 ### Data Structures
@@ -3454,7 +3484,7 @@ void TraceMethod()
 
 #### What is a graph? What are simple graphs? What are directed graphs? What are weighted graphs?
 
-- A Graph is a non-linear data structure consisting of nodes and edges.There are two main parts of a graph:
+- A Graph is a non-linear data structure consisting of nodes and edges. There are two main parts of a graph:
   - The vertices (nodes) where the data is stored
   - The edges (connections, lines) which connect the nodes.
 - A _simple graph_ is a graph with no loops(a graph which joins a vertex to itself, also called a self-loop) and no multiple edges(two or more edges connecting the same two vertices ).
@@ -3481,8 +3511,79 @@ void TraceMethod()
   - The memory complexity for this approach is O(n) because you have as many objects as you have nodes. The number of pointers (to nodes) required is up to O(n^2) as each node object may contain pointers for up to n nodes.
   - The time complexity for this data structure is O(n) for accessing any given node.
 - Storing a matrix of edge weights
+
   - This would be a memory complexity of O(n^2) for the matrix.
   - The advantage with this data structure is that the time complexity to access any given node is O(1).
+
+  ```c#
+  // Binary Tree
+  using System;
+
+  /* Class containing left and right child
+  of current node and key value*/
+  public class Node
+  {
+    public int key;
+    public Node left, right;
+
+    public Node(int item)
+    {
+      key = item;
+      left = right = null;
+    }
+  }
+
+  public class BinaryTree
+  {
+    // Root of Binary Tree
+    Node root;
+
+    // Constructors
+    BinaryTree(int key)
+    {
+      root = new Node(key);
+    }
+
+    BinaryTree()
+    {
+      root = null;
+    }
+
+    // Driver Code
+    public static void Main(String[] args)
+    {
+      BinaryTree tree = new BinaryTree();
+
+      /*create root*/
+      tree.root = new Node(1);
+
+      /* following is the tree after above statement
+        1
+        / \
+      null null	 */
+      tree.root.left = new Node(2);
+      tree.root.right = new Node(3);
+
+      /* 2 and 3 become left and right children of 1
+        1
+        / \
+        2	 3
+      / \ / \
+      null null null null */
+      tree.root.left.left = new Node(4);
+
+      /* 4 becomes left child of 2
+            1
+          /	 \
+        2		 3
+        / \	 / \
+        4 null null null
+      / \
+      null null
+      */
+    }
+  }
+  ```
 
 #### What are graph traversal algorithms? What is BFS, how does it work? What is DFS, how does it work?
 
@@ -3508,6 +3609,7 @@ void TraceMethod()
 
 - Quicksort is a divide-and-conquer algorithm.
 - It works by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot. The sub-arrays are then sorted recursively.
+
   1. Consider the first element of the list as pivot (i.e., Element at first position in the list).
   2. Define two variables i and j. Set i and j to first and last elements of the list respectively.
   3. Increment i until list[i] > pivot then stop.
@@ -3515,6 +3617,43 @@ void TraceMethod()
   5. If i < j then exchange list[i] and list[j].
   6. Repeat steps 3,4 & 5 until i > j.
   7. Exchange the pivot element with list[j] element.
+
+  ```c#
+  /* arr[] --> Array to be sorted,
+    low --> Starting index,
+    high --> Ending index */
+  static int partition(int []arr, int low, int high)
+  {
+    int pivot = arr[high];
+    int i = (low - 1);  // index of smaller element
+    for (int j = low; j < high; j++)
+    {
+      if (arr[j] < pivot)  // If current element is smaller than the pivot
+      {
+        i++;
+        int temp = arr[i];   // swap arr[i] and arr[j]
+        arr[i] = arr[j];
+        arr[j] = temp;
+      }
+    }
+    int temp1 = arr[i + 1]; // swap arr[i + 1] and arr[high] (or pivot)
+    arr[i + 1] = arr[high];
+    arr[high] = temp1;
+    return i + 1;
+  }
+
+  static void quickSort(int []arr, int low, int high)
+  {
+    if (low < high)
+    {
+      int pi = partition(arr, low, high);
+      quickSort(arr, low, pi - 1);
+      quickSort(arr, pi + 1, high);
+    }
+  }
+  ```
+
+---
 
 ## Software design
 
