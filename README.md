@@ -3666,7 +3666,7 @@ void TraceMethod()
 
 #### What is Basic Authentication?
 
-- Basic authentication is a simple authentication scheme built into the HTTP protocol. The client sends HTTP requests with the Authorization header that contains the word Basic word followed by a space and a base64-encoded string username:password. For example, to authorize as demo / p@55w0rd the client would send:
+- Basic authentication is a simple authentication scheme built into the HTTP protocol. The client sends HTTP requests with the Authorization header that contains the word Basic followed by a space and a base64-encoded string username:password. For example, to authorize as demo / p@55w0rd the client would send:
   ```
   Authorization: Basic ZGVtbzpwQDU1dzByZA==
   ```
@@ -3680,7 +3680,7 @@ void TraceMethod()
 - Is a W3C standard that allows a server to relax the same-origin policy.
 - An API is not safer by allowing CORS. For example, a malicious actor could use Cross-Site Scripting (XSS) against your site and execute a cross-site request to their CORS enabled site to steal information.
 - Allows a server to explicitly allow some cross-origin requests while rejecting others.
-- Is safer and more flexible than earlier techniques, such as JSONP.
+- Is safer and more flexible than earlier techniques, such as JSONP (JSON with Padding).
 
 #### How can you initialize a CSRF attack?
 
@@ -3698,6 +3698,7 @@ void TraceMethod()
 - JWT is a token that is issued by the server. The token has a JSON payload that contains information specific to the user. This token can be used by clients when talking to APIs (by sending it along as an HTTP header) so that the APIs can identify the user represented by the token, and take user specific action.
 - JWT also contains a signature. This signature is created by the server that issued the token (let’s say your login endpoint) and any other server that receives this token can independently verify the signature.
 - JWTs have an expiry value. Common practice is to keep it around 15 minutes, so that any leaked JWTs will cease to be valid fairly quickly.
+- The token is stored in an HttpOnly cookie. The other methods are all prone to XSS attacks and as such they should be avoided. An HttpOnly cookie is not accessible from JavaScript, and is automatically sent to the origin server upon every request, so it perfectly suits the use case.
 
 ### Threaded programming
 
@@ -3767,6 +3768,15 @@ void TraceMethod()
   - Controllers act as an interface between Model and View components to process all the business logic and incoming requests, manipulate data using the Model component and interact with the Views to render the final output.
 
 #### Explain the page lifecycle of MVC.
+
+- In a MVC application, all the requests are routed to a special class called the Controller. The controller is responsible for generating the response and sending the content back to the browser. Also, there is a many-to-one mapping between URL and controller.
+- When you request a MVC application, you are directly calling the action method of a controller.
+- The procedure involved is:
+  1. An instance of the RouteTable class is created on application start. This happens only once when the application is requested for the first time.
+  2. The UrlRoutingModule intercepts each request, finds a matching RouteData from a RouteTable and instantiates a MVCHandler (an HttpHandler).
+  3. The MVCHandler creates a DefaultControllerFactory (you can create your own controller factory also). It processes the RequestContext and gets a specific controller (from the controllers you have written). Creates a ControllerContext. es the controller a ControllerContext and executes the controller.
+  4. Gets the ActionMethod from the RouteData based on the URL. The Controller Class then builds a list of parameters (to to the ActionMethod) from the request.
+  5. The ActionMethod returns an instance of a class inherited from the ActionResult class and the View Engine renders a view as a web page.
 
 #### What is Razor View Engine?
 
