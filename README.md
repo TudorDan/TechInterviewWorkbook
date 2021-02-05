@@ -1,6 +1,6 @@
 # Tech Interview Workbook
 
-###### This is part of Codecool's curriculum Self Instructed Practice. It contains answers to questions from the "Programming Basics", "Web with Python" and "Java OOP" Modules.
+###### This is part of Codecool's curriculum Self Instructed Practice. It contains answers to questions from the "Programming Basics", "Web with Python", "Java OOP" and "Advanced .NET C#" Modules.
 
 ---
 
