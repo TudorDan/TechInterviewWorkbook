@@ -663,13 +663,13 @@ sudo apt install <name_of_application>
 - Big O notation is used in Computer Science to describe the performance or complexity of an algorithm.
 - Big O specifically describes the worst-case scenario, and can be used to describe the execution time required or the
   space used (e.g. in memory or on disk) by an algorithm:
-  _ Different steps get added:
-  _ O(a + b)
-  _ Drop constants:
-  _ <del>O(2n)</del> &rarr; O(n)
-  _ Different inputs &rarr; different variables:
-  _ <del>O(n<sup>2</sup>)</del> &rarr; O(a _ b)
-  _ Drop non-dominate terms: \* <del>O(n + n<sup>2</sup>)</del> &rarr; O(n<sup>2</sup>)
+  - Different steps get added:
+    - O(a + b)
+    - Drop constants:
+    - <del>O(2n)</del> &rarr; O(n)
+    - Different inputs &rarr; different variables:
+    - <del>O(n<sup>2</sup>)</del> &rarr; O(a \_ b)
+    - Drop non-dominate terms: \* <del>O(n + n<sup>2</sup>)</del> &rarr; O(n<sup>2</sup>)
 
 #### Explain the process of calculating the average value in a linked list of numbers!
 
