@@ -1451,7 +1451,7 @@ Connection: Closed
 
 #### What is DNS? How does it work?
 
-- DNS (Domain Name Server) is a host name to IP address translation service. It is a distributed database
+- DNS (Domain Name System) is a host name to IP address translation service. It is a distributed database
   implemented in a hierarchy of name servers. It is an application layer protocol for message exchange between clients
   and servers.
 - Domain name system comprises of:
