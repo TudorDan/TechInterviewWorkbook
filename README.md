@@ -665,11 +665,12 @@ sudo apt install <name_of_application>
   space used (e.g. in memory or on disk) by an algorithm:
   - Different steps get added:
     - O(a + b)
-    - Drop constants:
+  - Drop constants:
     - <del>O(2n)</del> &rarr; O(n)
-    - Different inputs &rarr; different variables:
+  - Different inputs &rarr; different variables:
     - <del>O(n<sup>2</sup>)</del> &rarr; O(a \_ b)
-    - Drop non-dominate terms: \* <del>O(n + n<sup>2</sup>)</del> &rarr; O(n<sup>2</sup>)
+  - Drop non-dominate terms:
+    - <del>O(n + n<sup>2</sup>)</del> &rarr; O(n<sup>2</sup>)
 
 #### Explain the process of calculating the average value in a linked list of numbers!
 
